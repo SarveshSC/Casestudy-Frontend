@@ -1,12 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { flightSearch } from 'src/app/model/flightSearch.model';
-import { flightTrip } from 'src/app/model/flightTrip.model';
 import { passenger } from 'src/app/model/passenger';
 
 import { seat } from 'src/app/model/seat.model';
 import { BookingService } from 'src/app/service/booking.service';
 import { CustomerDashboardService } from 'src/app/service/customer-dashboard.service';
+import { PaymentService } from 'src/app/service/payment.service';
+
+declare var Razorpay: any;
 
 @Component({
   selector: 'app-book-flight',
@@ -16,6 +18,8 @@ import { CustomerDashboardService } from 'src/app/service/customer-dashboard.ser
 export class BookFlightComponent implements OnInit{
   flightTripId : number = 0;
   selectedSeats = new Set<seat>();
+  ticketPrice = 0;
+  amount = 0;
 
   flight : flightSearch = {
     source : {
@@ -30,6 +34,8 @@ export class BookFlightComponent implements OnInit{
     },
     date : new Date()
   }
+
+  passengers !: any[];
 
   passenger : passenger = {
     passengerId: '',
@@ -46,7 +52,8 @@ export class BookFlightComponent implements OnInit{
   flag = false;
 
 
-  constructor(private route : ActivatedRoute, private service : CustomerDashboardService, private bookingService : BookingService, private router : Router) {}
+  constructor(private route : ActivatedRoute, private customerService : CustomerDashboardService, private bookingService : BookingService, private router : Router,
+    private paymentService : PaymentService) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -54,12 +61,27 @@ export class BookFlightComponent implements OnInit{
       // console.log(this.flightTripId);
     });
     this.getFlightData();
+    this.ticketPrice = this.customerService.getTicketPrice();
     // console.log(this.flight);
     this.getSelectedSeats();
+
+    this.passengers = Array.from(this.selectedSeats).map(seatNo => ({
+      name: '',
+      age: '',
+      gender: '',
+      seatNo: seatNo,
+    }));
   }
 
-  readFormData(data : any){
-    console.log(data);
+  readFormData(formData : any){
+    console.log(formData.value);
+    console.log(this.passengers);
+
+    console.log(this.ticketPrice * this.selectedSeats.size)
+    this.paymentService.setAmount(this.selectedSeats.size * this.ticketPrice);
+    // this.router.navigate(['customer/payments']);
+
+    // this.bookingService.bookFlights(this.flightTripId, this.passengers);
   }
 
   getFlightData() {
@@ -69,14 +91,14 @@ export class BookFlightComponent implements OnInit{
     // console.log(this.source + ' ' + this.destination);
 
     if (this.source) {
-      this.service.getAirport(this.source).subscribe(airport => {
+      this.customerService.getAirport(this.source).subscribe(airport => {
         if (airport) {
           this.flight.source = airport;
         }
       });
     }
     if (this.destination) {
-      this.service.getAirport(this.destination).subscribe(airport => {
+      this.customerService.getAirport(this.destination).subscribe(airport => {
         if (airport) {
           this.flight.destination = airport;
         }
@@ -98,4 +120,14 @@ export class BookFlightComponent implements OnInit{
   clearSelectedSeats(){
     this.bookingService.clearSelectedSeats();
   }
+
+  routeToPayment(amount : number){
+    this.paymentService.setAmount(amount);
+    this.paymentService.initiatePayment(amount);
+    this.bookingService.passengers = this.passengers;
+    this.bookingService.flightTripId = this.flightTripId;
+    // this.router.navigate(['/customer/payment']);
+    // this.bookingService.bookFlights();
+  }
+
 }

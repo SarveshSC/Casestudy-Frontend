@@ -23,10 +23,7 @@ export class EditFlightDialogComponent implements OnInit {
   myControl = new FormControl();
   isErrorExists=false;
   errorMessage:any
-  minDate=new Date();
-  filteredOptionsForSource!:Observable<airports[]>
-  filteredOptionsForDestination!:Observable<airports[]>
-
+  minDate=new Date()
 
 
 
@@ -46,34 +43,25 @@ export class EditFlightDialogComponent implements OnInit {
 
       source: ['', Validators.required],
       destination: ['',Validators.required],
-      departure: [''],
+      departure: ['',Validators.required],
       arrival: ['', Validators.required],
       ticketPrice: ['', [Validators.required, Validators.min(1000)]]
 
     }); this.checkForSource();
     console.log(this.airportList)
 
-    this.filteredOptionsForDestination = (this.myForm.get('destination')?.valueChanges ?? new Observable()).pipe(
-      startWith(''),
-      map(value => this.filter(value))
-    );
-
-    this.filteredOptionsForSource = (this.myForm.get('source')?.valueChanges ?? new Observable()).pipe(
-      startWith(''),
-      map(value => this.filter(value))
-    );
     
 
   }
   
 
 
-  private filter(value:string):airports[]{
-    const filterValue=value.toLowerCase();
-    return this.airportList.filter(option=>option.iataCode.toLocaleLowerCase().includes(filterValue) ||
-    option.location.toLocaleLowerCase().includes(filterValue) ||
-    option.name.toLocaleLowerCase().includes(filterValue) );
-  }
+  // private filter(value:string):string[]{
+  //   const filterValue=value.toLowerCase();
+  //   return this.airportList.map(airport=>airport.iataCode+''+airport.location+''+airport.name).filter(option=>{
+  //     option.toLowerCase().includes(filterValue)
+  //   })
+  // }
 
 
   checkForSource() {

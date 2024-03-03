@@ -24,7 +24,6 @@ export class ManageFlightsComponent {
   totalItems = this.flightsList.length;
   showFormBox: boolean=false;
   flightForm!: FormGroup;
-  searchText=''
 selectedflight: flight = {} as flight;
 showAddForm=false;
 addFlightForm!:FormGroup;
@@ -65,7 +64,11 @@ status!:string
     this.currentPage = event.pageIndex;
   }
 
- 
+  getCurrentPageItems(): flight[] {
+    const startIndex = this.currentPage * this.pageSize;
+    this.totalItems = this.flightsList.length;
+    return this.flightsList.slice(startIndex, startIndex + this.pageSize);
+  }
 
   
   
@@ -93,6 +96,27 @@ status!:string
     });
   }
 
+
+  
+ 
+  onSubmit() {
+    if (this.flightForm.valid) {
+      // Update selected flight object with form values
+      this.selectedflight.cabinWeight = this.flightForm.value.cabinWeight;
+      this.selectedflight.checkInWeight = this.flightForm.value.checkInWeight;
+
+      
+       this.flightservice.updateFlight(this.selectedflight).subscribe((flight)=>this.selectedflight=flight);
+       console.log(this.selectedflight.checkInWeight);
+       this.selectedflight= {} as flight;
+       this.getAllFlights();
+    }
+  }
+
+  closeEditForm() {
+    this.selectedflight= {} as flight; // Reset state on close
+    this.showFormBox = false;
+  }
   openAddForm() {
     
     
@@ -125,6 +149,12 @@ status!:string
     }
 
     
+
+      closeAddForm(){
+        this.selectedflight= {} as flight;
+        this.showAddForm=false;
+      }
+
       simulateClick(flightCode:any){
         console.log(this.dashboardservice.getFlightTripCode())
         this.dashboardservice.setFlightTripCode(flightCode)
@@ -148,33 +178,4 @@ status!:string
         });
         popup.afterClosed().subscribe(item=>{this.getAllFlights();})
        }
-
-
-       getCurrentPageItems(): flight[] {
-        // Filter airlines based on search text
-        const filteredAirlines = this.flightsList.filter(flight => {
-          return flight.flightCode.toLowerCase().includes(this.searchText.toLowerCase()) || 
-          flight.airlineId.toLowerCase().includes(this.searchText.toLowerCase()) ;
-        });
-      
-        // Update total items count
-        this.totalItems = filteredAirlines.length;
-      
-        // Calculate start index based on current page and page size
-        const startIndex = this.currentPage * this.pageSize;
-      
-        // Update current page if necessary
-        const filteredPage = Math.floor(startIndex / this.pageSize);
-        if (this.currentPage !== filteredPage) {
-          this.currentPage = filteredPage;
-          this.paginator.pageIndex = filteredPage;
-        }
-      
-        // Return airlines for the current page
-        return filteredAirlines.slice(startIndex, startIndex + this.pageSize);
-      }
-      onSearch() {
-        // Reset paginator to first page when searching
-        this.paginator.firstPage();
-      }
 }

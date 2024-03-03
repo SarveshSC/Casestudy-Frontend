@@ -14,6 +14,7 @@ import { CustomerDashboardComponent } from './components/customer-dashboard/cust
 import { FlightOwnerSignupComponent } from './components/flight-owner-signup/flight-owner-signup.component';
 import { BookFlightComponent } from './components/customer/book-flight/book-flight.component';
 import { SelectSeatsComponent } from './components/customer/select-seats/select-seats.component';
+import { BookingSuccessComponent } from './components/customer/booking-success/booking-success.component';
 
 const routes: Routes = [
   {
@@ -41,7 +42,8 @@ const routes: Routes = [
   {path:'flight-trip/:flightcode',component:ManageFlightTripsComponent},
   {path: 'flight-owner/signup',component:FlightOwnerSignupComponent},
   {path: 'customer/book-flight/:flightTripId',component:BookFlightComponent},
-  {path: 'customer/select-seats/:flightTripId', component:SelectSeatsComponent}
+  {path: 'customer/select-seats/:flightTripId', component:SelectSeatsComponent},
+  {path: 'customer/booking-success', component: BookingSuccessComponent}
  
 ];
 

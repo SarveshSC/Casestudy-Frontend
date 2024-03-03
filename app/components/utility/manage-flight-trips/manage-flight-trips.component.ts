@@ -21,7 +21,7 @@ export class ManageFlightTripsComponent implements OnInit{
   @Input() flightcode!:string
   selectedFlightTrip: flightTrip | null = null;
   updateFlightTripForm!: FormGroup;
-searchText=''
+
   flightTripsList : flightTrip[] = [];
   pageSize = 5;
   currentPage = 0;
@@ -63,7 +63,11 @@ searchText=''
     this.currentPage = event.pageIndex;
   }
 
-
+  getCurrentPageItems(): flightTrip[] {
+    const startIndex = this.currentPage * this.pageSize;
+    this.totalItems = this.flightTripsList.length;
+    return this.flightTripsList.slice(startIndex, startIndex + this.pageSize);
+  }
 
   openEditForm(flightTripId:any) {
     var popup=this.dialog.open(UpdateTripFormsComponent,{
@@ -76,9 +80,7 @@ searchText=''
     title:'update the form'
   }
     });
-    popup.afterClosed().subscribe(item=>{
-     this.getFlightTrips();
-    })
+    popup.afterClosed().subscribe(item=>{this.getFlightTrips();})
     
   }
 
@@ -104,34 +106,5 @@ searchText=''
   });
   popup.afterClosed().subscribe(item=>{this.getFlightTrips();})
    }
-
-   getCurrentPageItems(): flightTrip[] {
-    // Filter airlines based on search text
-    const filteredAirlines = this.flightTripsList.filter(flightTrip => {
-      return flightTrip.source.toLowerCase().includes(this.searchText.toLowerCase()) || 
-      flightTrip.destination.toLowerCase().includes(this.searchText.toLowerCase())||
-      flightTrip.flightId.toLowerCase().includes(this.searchText.toLowerCase());
-    });
-  
-    // Update total items count
-    this.totalItems = filteredAirlines.length;
-  
-    // Calculate start index based on current page and page size
-    const startIndex = this.currentPage * this.pageSize;
-  
-    // Update current page if necessary
-    const filteredPage = Math.floor(startIndex / this.pageSize);
-    if (this.currentPage !== filteredPage) {
-      this.currentPage = filteredPage;
-      this.paginator.pageIndex = filteredPage;
-    }
-  
-    // Return airlines for the current page
-    return filteredAirlines.slice(startIndex, startIndex + this.pageSize);
-  }
-  onSearch() {
-    // Reset paginator to first page when searching
-    this.paginator.firstPage();
-  }
 
 }

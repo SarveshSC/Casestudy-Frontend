@@ -60,7 +60,7 @@ export class AdminDashboardService {
   }
 
   approveUser(username: any) {
-    return this.http.put<string>(this.baseURL + 'approve-user/' + username, {}, { headers: this.getHeaders(),responseType:'text' as 'json' }).pipe(
+    return this.http.put<string>(this.baseURL + 'approve-user/' + username, {}, { headers: this.getHeaders() }).pipe(
       tap(() => {
         this.Refreshrequired.next();
       })
@@ -69,25 +69,5 @@ export class AdminDashboardService {
 
   getCustomerBookingsByUsername(username:any){
     return this.http.get<booking[]>("http://localhost:8080/simply-fly/customers/get-customer-bookings-by-username/"+username,{headers:this.getHeaders()})
-  }
-
-  addAAirport(airport:airports){
-    return this.http.post(this.baseURL+'add-airport',airport,{headers:this.getHeaders()})
-  }
-
-  updateAirport(airport:airports){
-    return this.http.put(this.baseURL+'modify-aiport',airport,{headers:this.getHeaders()})
-  }
-
-  removeUser(username:any){
-    return this.http.put<string>(this.baseURL + 'reject-user/' + username, {}, { headers: this.getHeaders(),responseType:'text' as 'json' });
-  }
-
-  inactiveUser(username:any){
-    return this.http.put<string>(this.baseURL + 'make-user-inactive/' + username, {}, { headers: this.getHeaders(),responseType:'text' as 'json' });
-  }
-
-  addAirline(airlines:airline){
-    return this.http.post(this.baseURL+'add-airline',airlines,{headers:this.getHeaders()})
   }
 }

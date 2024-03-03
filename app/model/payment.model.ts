@@ -1,4 +1,6 @@
 export interface payment{
-    paymentId : number;
+    paymentId : string;
     status : string;
+    name : string;
+    amount : number;
 }

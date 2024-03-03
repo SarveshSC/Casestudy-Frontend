@@ -16,12 +16,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let booking of getCurrentPageItems(); let i = index">
+    <tr *ngFor="let booking of bookingList; let i = index">
       <td>{{ i }}</td>
       <td>{{ booking.bookingId }}</td>
       <td>{{ booking.flightTripId }}</td>
-      <td>{{ booking.amount }}</td>
-      <td>{{ booking.bookingDateTime }}</td>
+      <td>{{ booking.amount | currency : 'INR'}}</td>
+      <td>{{ booking.bookingDateTime | date }}</td>
       <td>{{ booking.customerId }}</td>
       <td>{{ booking.status }}</td>
       
