@@ -30,8 +30,9 @@
         <div *ngFor="let row of leftRows">
           <div class="row-label">{{ row.name }}</div> <br>
           <div *ngFor="let seat of getSeatsByRow(row.name)" class="box">
-            <a (click)="selectSeat($event)"  id="{{seat.seatNo}}" >
-              <div class="seat" id="{{seat.seatNo}}" [ngStyle]="{ 'background-color': isSelected[seat.seatNo] ? 'green' : 'white' }">
+            <a (click)="selectSeat($event)" [ngClass]="{'disabled': seat.status === 'Booked'}">
+              <div class="seat"  
+              [ngStyle]="{ 'background-color': seat.status === 'Booked' ? 'grey' : isSelected[seat.seatNo] ? 'green' : 'white' }">
                 <span>{{seat.seatNo}} {{seat.status}}</span>
               </div>
             </a>

@@ -4,6 +4,8 @@ import { booking } from '../model/booking.model';
 import { Observable } from 'rxjs';
 import { seat } from '../model/seat.model';
 import { ReturnStatement } from '@angular/compiler';
+import { passenger } from '../model/passenger';
+import { bookingInput } from '../model/bookingInput.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,10 @@ export class BookingService {
 
   selectedSeats = new Set<seat>();
  
-  bookingId:any
+  flightTripId : number = 0;
+  bookingId : number = 0;
+  passengers : passenger[] = [];
+  paymentId : string = '';
   
   setBookingId(data:any){
     this.bookingId=data
@@ -26,7 +31,6 @@ export class BookingService {
 
   private getHeaders() : HttpHeaders{
     const token = localStorage.getItem('token');
-    console.log(token);
     let header = new HttpHeaders({
       'Content-Type' : 'application/json',
       'Authorization' : `Bearer ${token}`
@@ -64,12 +68,31 @@ export class BookingService {
     return this.http.get<booking[]>(this.baseURL+'flightTrips/get-bookings-by-flightTripId/'+localStorage.getItem('username')+'/'+bookingCode,{headers:this.getHeaders()});
   }
 
-  getCustomerBookings() : Observable<booking[]>{
-    console.log(this.baseURL + 'booking/get-by-customer/' + localStorage.getItem('username'));
-    return this.http.get<booking[]>(this.baseURL + 'booking/get-by-customer/' + localStorage.getItem('username'), {headers : this.getHeaders()});
-  }
-
   clearSelectedSeats(){
     this.selectedSeats = new Set<seat>();
+  }
+
+  bookFlights(){
+    console.log('book flights called ' + this.flightTripId + ' ' + this.passengers);
+
+    const requestBody = {
+      passengers: this.passengers.map(passenger => ({
+        name: passenger.name,
+        age: passenger.age,
+        gender: passenger.gender,
+        seat: passenger.seatNo
+      })),
+      paymentId : this.paymentId
+    }
+    console.log('payment id ' + this.paymentId);
+    console.log(requestBody);
+
+    this.http.post<booking>(this.baseURL+'customers/booking/book-flight/' + localStorage.getItem('username') + '/' + this.flightTripId, requestBody, {headers : this.getHeaders()}).subscribe(
+      (response) => console.log(response),
+      (error) => console.error(error)
+    )
+  }
+  setPaymentId(paymentId : string){
+    this.paymentId = paymentId;
   }
 }

@@ -3,6 +3,7 @@ import { Injectable, Input } from '@angular/core';
 import { flightSearch } from '../model/flightSearch.model';
 import { airports } from '../model/airport.model';
 import { Observable } from 'rxjs/internal/Observable';
+import { booking } from '../model/booking.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,8 @@ export class CustomerDashboardService {
     )
   }
 
+  baseURL : string = 'http://localhost:8080/simply-fly/customers/'
+
   setSelected(input : string){
     this.selected = input;
   }
@@ -30,8 +33,6 @@ export class CustomerDashboardService {
   getSelected(){
     return this.selected;
   }
-
-
 
   getAirport(code : string) : Observable<airports>{
     return this.http.get<airports>('http://localhost:8080/simply-fly/admin/find-airport/'+code, {headers : this.getHeaders()});
@@ -51,5 +52,9 @@ export class CustomerDashboardService {
 
   getTicketPrice(){
     return this.ticketPrice;
+  }
+
+  getCustomerBookings() : Observable<booking[]>{
+    return this.http.get<booking[]>('http://localhost:8080/simply-fly/customers/booking/get-by-customer/' + localStorage.getItem('username'), {headers : this.getHeaders()});
   }
 }

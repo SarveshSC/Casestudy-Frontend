@@ -22,7 +22,7 @@ export class NavbarComponent implements AfterViewChecked{
 
   ngAfterViewChecked(): void {  
     this.username = localStorage.getItem('username');
-    console.log(this.authService.isLoggedIn);
+    // console.log(this.authService.isLoggedIn);
   } 
 
   logout() {

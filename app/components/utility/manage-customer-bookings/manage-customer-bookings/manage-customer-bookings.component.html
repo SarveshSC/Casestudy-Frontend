@@ -1,6 +1,6 @@
 <h2>Bookings</h2>
-<!-- 
-{{bookingList | json}} -->
+
+{{bookingList | json}}
 
 <table class="table">
   <thead class="thead-dark">
@@ -16,12 +16,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let booking of bookingList; let i = index">
+    <tr *ngFor="let booking of getCurrentPageItems(); let i = index">
       <td>{{ booking.bookingId }}</td>
       <td>{{ booking.bookingDateTime | date}}</td>
       <td>{{ booking.passengers.length }}</td>
       <td>{{ booking.amount | currency : 'INR' : 'symbol'}}</td>
-      <td>{{ booking.payments.status }}</td>
+      <td>{{ booking.payments | json}}</td>
       <td>{{ booking.status }}</td>
       <td><button type="button" class="btn btn-info">Modify</button></td>
       <td><button type="button" class="btn btn-danger">Danger</button></td>
@@ -33,5 +33,6 @@
   [pageSize]="5"
   [length]="totalItems"
   showFirstLastButtons
-  (page)="onPageChange($event)"></mat-paginator>
+  (page)="onPageChange($event)"
+></mat-paginator>
 
