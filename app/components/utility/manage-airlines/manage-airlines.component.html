@@ -1,0 +1,50 @@
+<h2>Airlines</h2>
+
+<input type="text" placeholder="Search" [(ngModel)]="searchText" class="search-input" (input)="onSearch()">
+<button (click)="openAddForm()" class="add-airline-button">ADD AIRLINE</button>
+<!-- <button mat-button (click)="openDialog()">Open Dialog</button>
+
+<div *ngIf="addForm">
+  <h2 mat-dialog-title>Dialog Title</h2>
+  <mat-dialog-content>
+    <form>
+      Form
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true">Submit</button>
+  </mat-dialog-actions>
+</div> -->
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Id</th>
+      <th scope="col">Airline Name</th>
+      <th scope="col">Modify</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let airline of getCurrentPageItems()| customername:searchText; let i = index">
+      <td>{{i}}</td>
+      <td>{{ airline.airlineId }}</td>
+      <td>{{ airline.airlineName }}</td>
+      <td>
+        <button mat-icon-button><mat-icon>edit</mat-icon></button>
+      </td>
+      <td>
+        <button mat-icon-button><mat-icon>delete</mat-icon></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+  <mat-paginator
+  class="table"
+  [pageSize]="5"
+  [length]="totalItems"
+  showFirstLastButtons
+  (page)="onPageChange($event)"
+  ></mat-paginator>

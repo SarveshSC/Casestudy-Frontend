@@ -1,0 +1,14 @@
+<div class="content">
+    <div *ngIf="selected==='airlines'">
+        <app-manage-airlines></app-manage-airlines>
+    </div>
+    <div *ngIf="selected==='airports'">
+        <app-manage-airports></app-manage-airports>
+    </div>
+    <div *ngIf="selected === 'flight-owners'">
+        <app-manage-flight-owners></app-manage-flight-owners>
+    </div>
+    <div *ngIf="selected === 'customers'">
+        <app-manage-customers></app-manage-customers>
+    </div>
+</div>

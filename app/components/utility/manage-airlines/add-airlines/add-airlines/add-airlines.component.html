@@ -1,0 +1,43 @@
+<p>add-airports-form works!</p>
+<form [formGroup]="myForm" (ngSubmit)="addAirline()" >
+    <h1 mat-dialog-title style="align-items: center;">Add a Airport</h1>
+    <div mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Airline Id</mat-label>
+            <input formControlName="airlineId" matInput >
+            <small *ngIf="myForm.get('airlineId')?.hasError('required')" class="text-danger">
+              IATA Code is required.
+            </small>
+            <small *ngIf="myForm.get('airlineId')?.hasError('pattern')" class="text-danger">
+              IATA Code must be in format XXX  (X: A-Z,0-9) (ex:ABC,A23).
+            </small>
+          </mat-form-field>
+
+
+          <mat-form-field>
+            <mat-label>Airline Name</mat-label>
+            <input formControlName="airlineName" matInput >
+            <small *ngIf="myForm.get('airlineName')?.hasError('required')" class="text-danger">
+              Airline name is required is required.
+            </small>
+          </mat-form-field>
+
+         
+
+    </div>
+    <div mat-dialog-actions>
+        <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Submit</button>
+        <button (click)="closePopup()" mat-raised-button color="warn">close</button>
+        <br>
+        <h3 *ngIf="this.isErrorExists==false" class="text text">{{message}}</h3>
+        <h3 *ngIf="this.isErrorExists" class="text text-danger">{{message}}</h3>
+    </div>
+
+
+
+
+
+
+
+
+</form>

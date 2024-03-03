@@ -1,0 +1,27 @@
+.container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    width: max-content;
+    height: max-content;
+}
+h2{
+    text-align: center;
+}
+.submit{
+    text-align: center;
+}
+
+.form-control{
+    /* width: 40%; */
+    border-radius: 1rem;
+}
+
+a{
+    text-decoration: none;
+    color: blue;
+}

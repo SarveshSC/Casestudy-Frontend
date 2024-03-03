@@ -1,0 +1,49 @@
+<p>add-airports-form works!</p>
+<form [formGroup]="myForm" (ngSubmit)="addAirport()" >
+    <h1 mat-dialog-title style="align-items: center;">Add a Airport</h1>
+    <div mat-dialog-content>
+        <mat-form-field>
+            <mat-label>IATA Code</mat-label>
+            <input formControlName="iataCode" matInput >
+            <small *ngIf="myForm.get('iataCode')?.hasError('required')" class="text-danger">
+              IATA Code is required.
+            </small>
+            <small *ngIf="myForm.get('iataCode')?.hasError('pattern')" class="text-danger">
+              IATA Code must be in format XXX  (X: A-Z ) (ex:ABC).
+            </small>
+          </mat-form-field>
+
+
+          <mat-form-field>
+            <mat-label>Airport Name</mat-label>
+            <input formControlName="name" matInput >
+            <small *ngIf="myForm.get('name')?.hasError('required')" class="text-danger">
+              Airport name is required is required.
+            </small>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Location</mat-label>
+            <input formControlName="location" matInput >
+            <small *ngIf="myForm.get('location')?.hasError('required')" class="text-danger">
+              Location is required is required.
+            </small>
+          </mat-form-field>
+
+    </div>
+    <div mat-dialog-actions>
+        <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Submit</button>
+        <button (click)="closePopup()" mat-raised-button color="warn">close</button>
+        <br>
+        <h3 *ngIf="this.isErrorExists==false" class="text text">{{message}}</h3>
+        <h3 *ngIf="this.isErrorExists" class="text text-danger">{{message}}</h3>
+    </div>
+
+
+
+
+
+
+
+
+</form>

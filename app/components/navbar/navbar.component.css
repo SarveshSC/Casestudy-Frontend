@@ -1,0 +1,63 @@
+.logo {
+  font-family: Helvetica, sans-serif;
+  font-size: 30px;
+  margin: 10px 0;
+  font-weight: bold;
+  background: linear-gradient(90deg, 
+  #03001e,
+  #7303c0,
+  #ec38bc);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  position: absolute;
+  top: 0;
+}
+.user{
+  font-family: Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+.navbar{
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.5);
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+mat-icon{
+  margin-top: 3px;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: rgba(255, 255, 255, 0.8);}
+
+.user:hover .dropdown-content {display: block;}
+
+a{
+  cursor: pointer;
+}
+
+.username{
+  display: flex;
+  width: max-content;
+  gap: 10px;
+  margin: 10px 10px;
+
+  
+}

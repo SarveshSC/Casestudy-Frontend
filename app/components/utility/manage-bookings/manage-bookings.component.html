@@ -1,0 +1,36 @@
+<h2>Bookings</h2>
+
+
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Booking Id</th>
+      <th scope="col">Flight trip id</th>
+      <th scope="col">amount</th>
+      <th scope="col">Booking date and time</th>
+      <th scope="col">customer id</th>
+      <th scope="col">Status</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let booking of getCurrentPageItems(); let i = index">
+      <td>{{ i }}</td>
+      <td>{{ booking.bookingId }}</td>
+      <td>{{ booking.flightTripId }}</td>
+      <td>{{ booking.amount }}</td>
+      <td>{{ booking.bookingDateTime }}</td>
+      <td>{{ booking.customerId }}</td>
+      <td>{{ booking.status }}</td>
+      
+    </tr>
+  </tbody>
+</table>
+<mat-paginator
+  class="table"
+  [pageSize]="5"
+  [length]="totalItems"
+  showFirstLastButtons
+  (page)="onPageChange($event)"></mat-paginator>

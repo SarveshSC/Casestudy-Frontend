@@ -1,0 +1,19 @@
+<div class="navbar">
+    <div>
+        <a routerLink="/">
+        <p class="logo">SimplyFly</p>
+        </a>
+    </div>
+    <div class="user">
+        <a class="username">
+            <mat-icon>account_circle</mat-icon>
+            <p class="user">{{username}}</p>
+        </a>
+        <div class="dropdown-content">
+            <a routerLink="/login" *ngIf="getLoginStatus() == null">Login</a>
+            <a (click)="redirectToDashboard()" *ngIf="getLoginStatus() == 'true'">Dashboard</a>
+            <a (click)="logout()" *ngIf="getLoginStatus() == 'true'">Logout <mat-icon >exit_to_app</mat-icon></a>
+        </div>
+    </div>
+</div>
+<!-- <button type="button" (click)="logout()">Logout</button> -->

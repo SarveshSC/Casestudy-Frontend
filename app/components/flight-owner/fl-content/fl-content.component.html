@@ -1,0 +1,11 @@
+<div class="content">
+  <div *ngIf="getSelected() === 'flights'">
+    <app-manage-flights></app-manage-flights>
+  </div>
+  <div *ngIf="getSelected() === 'flight-trips'">
+    <app-manage-flight-trips></app-manage-flight-trips>
+  </div>
+  <div *ngIf="getSelected() === 'bookings'">
+    <app-manage-bookings></app-manage-bookings>
+  </div>
+</div>

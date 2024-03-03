@@ -1,0 +1,24 @@
+.sidebar{
+    width: 15vw;
+    height: 100vh;
+    background: black;
+    opacity: 50%;
+    color: wheat;
+}
+
+h2{
+    padding: 10px;
+}
+
+a{
+    padding: 10px;
+}
+.button{
+    padding: 10px;
+}
+
+a:hover{
+    cursor: pointer;
+    opacity: 80%;
+    font-size: large;
+}

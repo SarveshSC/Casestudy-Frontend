@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Calligraffitti&display=swap');
+
+.homepage {
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 50vw;
+  height: 50vh;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+}
+
+h1 {
+  font-family: "Calligraffitti", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  margin: 1rem;
+}
+
+a{
+  text-decoration: none;
+  font-size: 20px;
+  color: rgb(0,19,146);
+}
+
+button{
+  margin-bottom: 10px;
+}
+
+#hyperlink{
+  margin: 10px;
+}

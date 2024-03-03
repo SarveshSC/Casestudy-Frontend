@@ -1,0 +1,68 @@
+.grid-container {
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  grid-gap: 10px; 
+  justify-content: space-around;
+  width: 45vw;
+  height: 60vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: center;
+  padding: 20px;
+  margin: auto;
+}
+
+#left-container{
+  display: flex;
+}
+
+#right-container{
+  display: flex;
+}
+a{
+  cursor: pointer;
+}
+
+span{
+  visibility: hidden;
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+  border-radius: 3px;
+  padding: 3px;
+  margin-bottom: 25px;
+  position: relative;
+  z-index: 1;
+  font-size: 10px;
+  display: block;
+  width: fit-content;
+}
+.seat{
+  background-color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+  margin: 20px;
+}
+
+a:hover span{
+  visibility: visible;
+  position: relative;
+  bottom: 100%;
+  right: 10%;
+}
+
+.page{
+  display: flex;
+}
+.payment{
+  background-color: white;
+  width: 15vw;
+  height: auto;
+}
+.box{
+  text-align: center;
+}
+
+.disabled{
+  pointer-events: none;
+}

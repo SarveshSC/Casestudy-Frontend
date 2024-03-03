@@ -1,0 +1,67 @@
+<div class="container">
+
+  <!-- <form #formData="ngForm" (ngSubmit)="createAccount(formData.value)">
+    <label for="form" style="text-align: center;"><h2>SignUp</h2></label>
+    <div class="form-group">
+      <input class="form-control" [(ngModel)]="customer.username" name="username" placeholder="Enter your username" required> 
+    </div>
+    <div class="form-group">
+      <label for="email">Name</label>
+      <input type="text" class="form-control" [(ngModel)]="customer.name" placeholder="Enter your Name"  name="name" required>
+    </div>  
+    <div class="form-group">
+      <label for="contact">Contact</label>
+      <input type="tel" class="form-control" placeholder="Enter your contact no" [(ngModel)]="customer.contact" name="contact" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="email" class="form-control" placeholder="Enter your email address" [(ngModel)]="customer.email" name="email" required>
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Age</label>
+      <input type="number" class="form-control" placeholder="Enter your age" [(ngModel)]="customer.age" name="age" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" placeholder="Password" [(ngModel)]="customer.password" name="password" required>
+    </div>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+      <label class="form-check-label" for="exampleCheck1">Do you agree to the terms & conditions</label>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="formData.invalid">Submit</button>
+  </form> -->
+  <form #formData="ngForm" (ngSubmit)="createAccount(formData.value)">
+    <label for="form" style="text-align: center;"><h2>SignUp</h2></label>
+    <div class="form-group">
+      <!-- <label for="name">Name</label> -->
+      <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" required [(ngModel)]="customer.name">
+    </div>
+    <div class="form-group">
+      <!-- <label for="username">Username</label> -->
+      <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required [(ngModel)]="customer.username">
+    </div>
+    <div class="form-group">
+      <!-- <label for="email">Email</label> -->
+      <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required [(ngModel)]="customer.email">
+    </div>
+    <div class="form-group">
+      <!-- <label for="contact">Contact</label> -->
+      <input type="tel" class="form-control" id="contact" name="contact" placeholder="Enter contact" required [(ngModel)]="customer.contact">
+    </div>
+    <div class="form-group">
+      <!-- <label for="password">Password</label> -->
+      <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required [(ngModel)]="customer.password">
+    </div>
+    <div class="form-group row">
+      <label for="age">Age</label>
+      <input type="number" class="form-control" id="age" name="age" placeholder="Enter age" required [(ngModel)]="customer.age">
+    </div>
+    <div class="submit">
+      <button type="submit" class="btn btn-primary">Create Account</button>
+    </div>
+  </form>
+  <p>Already a user? <a routerLink="/login">Login</a></p>
+</div>
+  

@@ -1,0 +1,42 @@
+<h2>Flight Owners</h2>
+<input type="text" placeholder="Search"  class="search-input" [(ngModel)]="searchText" (input)="onSearch()">
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Username</th>
+      <th scope="col">Airline</th>
+      <th scope="col">Email</th>
+      <th scope="col">Status</th>
+      <th scope="col">Approve</th>
+      <th scope="col">Reject</th>
+      <th scope="col">Modify</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let owner of getCurrentPageItems()|customername:searchText ; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ owner.username }}</td>
+      <td>{{ (owner.airlineFromUser.airlineName) }}</td>
+      <td>{{ owner.email }}</td>
+      <td>{{ owner.userStatus }}</td>
+      <td><button type="button" class="btn btn-dark"  (click)="approveUser(owner.username) " [disabled]="owner.userStatus !== 'PENDING'">Approve</button></td>
+      <td><button type="button" class="btn btn-dark"  (click)="removeUser(owner.username) " [disabled]="owner.userStatus  !== 'PENDING'">Reject</button></td>
+
+      <td>
+        <button mat-icon-button [disabled]="owner.userStatus !='INACTIVE'" (click)="approveUser(owner.username)"><mat-icon>edit</mat-icon></button>
+      </td>
+      <td>
+        <button mat-icon-button  [disabled]="owner.userStatus  !='APPROVED'" (click)="inactiveUser(owner.username)"><mat-icon>delete</mat-icon></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<mat-paginator
+  class="table"
+  [pageSize]="5"
+  [length]="totalItems"
+  showFirstLastButtons
+  (page)="onPageChange($event)"
+></mat-paginator>

@@ -1,0 +1,19 @@
+<div class="homepage">
+    <div class="header">
+        <h1>Simplyify flying with SimplyFly</h1>
+    </div>
+    <div class="body">
+        <p>Start your next trip with us!</p> 
+        <button mat-raised-button routerLink="/search-flights">Search Flights</button> <br>
+        <div>
+            <p>
+                <a routerLink="/login" id="hyperlink" *ngIf="getLoginStatus() == null">Login</a>        
+                <a routerLink='/signup' id="hyperlink" *ngIf="getLoginStatus() == null">SignUp</a>
+            </p>
+        </div>
+    </div>
+    <div class="footer">
+        Are you a flight owner? Join with us 
+        <a routerLink="/flight-owner/signup">here.</a>
+    </div>
+</div>

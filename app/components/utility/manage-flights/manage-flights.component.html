@@ -1,0 +1,60 @@
+<h2>Flights </h2>
+<!-- could add Airline Name -->
+<input type="text" placeholder="Search" [(ngModel)]="searchText" class="search-input" (input)="onSearch()">
+<button (click)="openAddForm()" class="add-FLIGHT-button">AddFlight</button>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">FlightCode</th>
+      <th scope="col">Check-in Weight</th>
+      <th scope="col">Cabin Weight</th>
+      <th scope="col">Total Seats</th>
+      <th scope="col">Airline Id</th>
+      <th scope="col">last arrived airport</th>
+      <th scope="col">last arrived time</th>
+      <th scope="col">status</th>
+      <th scope="col">Modify</th>
+      <th scope="col">Delete</th>
+      <th scope="col">Add a schedue</th>
+      <th scope="col">View all flight trips</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let flight of getCurrentPageItems(); let i = index">
+      <td>{{ flight.flightCode }}</td>
+      <td>{{ flight.checkInWeight }} kg</td>
+      <td>{{ flight.cabinWeight }} kg</td>
+      <td>{{ flight.totalSeats }}</td>
+      <td>{{ flight.airlineId }}</td>
+      <td>{{flight.lastArrivedAirportId}}</td>
+      <td>{{flight.lastArrivedTime | date : 'MMM d, y, h:mm:ss a'}}</td>
+      <td>{{flight.flightStatus}}</td>
+
+      <td>
+        <button   mat-icon-button (click)="openUpdateForm(flight.flightCode)"><mat-icon>edit</mat-icon></button>
+      </td>
+      <td>
+        <button  *ngIf="flight.flightStatus==='Active'"  mat-icon-button (click)="deleteFlight(flight.flightCode)"><mat-icon>delete</mat-icon></button>
+      </td>
+      <td>
+        <button *ngIf="flight.flightStatus==='Active'"   mat-raised-button (click)="openPopup(flight)"> add flight schedule</button>
+      </td>
+      <!-- Inside the template where you navigate to ManageFlightTripsComponent -->
+      <td>
+        <button
+          mat-flat-button
+          (click)="simulateClick(flight.flightCode)">View All Flights Trips</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<mat-paginator
+  class="table"
+  [pageSize]="5"
+  [length]="totalItems"
+  showFirstLastButtons
+  (page)="onPageChange($event)"
+></mat-paginator>

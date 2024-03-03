@@ -1,0 +1,55 @@
+<form [formGroup]="myForm" (ngSubmit)="updateFlightTrip()">
+    <h1 mat-dialog-title style="align-items: center;">Schedule a trip</h1>
+    <div mat-dialog-content>
+    
+    <mat-form-field>
+      <mat-label>Source</mat-label>
+      <input formControlName="source" matInput  readonly>
+      <small *ngIf="myForm.get('source')?.hasError('required')" class="text-danger">
+        Flight Code is required.
+      </small>
+      
+      
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Destination</mat-label>
+      <input formControlName="destination" matInput readonly>
+      <small *ngIf="myForm.get('destination')?.hasError('required')" class="text-danger">
+        Total seats is required.
+      </small>
+     
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Departure</mat-label>
+      <input formControlName="departure" matInput readonly>
+      <small *ngIf="myForm.get('departure')?.hasError('required')" class="text-danger">
+        Check-in weight is required.
+      </small>
+      
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Arrival</mat-label>
+      <input formControlName="arrival" matInput readonly>
+      <small *ngIf="myForm.get('arrival')?.hasError('required')" class="text-danger">
+        Cabin weight is required.
+      </small>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Ticket Price</mat-label>
+      <input   formControlName="ticketPrice" matInput >
+      <small *ngIf="myForm.get('ticketPrice')?.hasError('required')" class="text-danger">
+        Airline ID is required.
+      </small>
+    </mat-form-field>
+    
+    
+    
+    </div>
+    <div mat-dialog-actions>
+        <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Submit</button>
+        <button (click)="closePopup()" mat-raised-button color="warn">close</button>
+    <!-- <button  [matDialogClose]="closedMessage" mat-raised-button color="accent">cancel</button> -->
+    
+    </div>
+    </form>

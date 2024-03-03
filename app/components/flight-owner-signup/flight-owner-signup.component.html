@@ -1,0 +1,22 @@
+<div class="container">
+    <form #formData="ngForm" (ngSubmit)="createAccount(formData.value)">
+      <label for="form" style="text-align: center;"><h2>Flight Owner Registration</h2></label>
+      <div class="form-group">
+        <input type="text" class="form-control" id="name" name="username" placeholder="Enter username" required [(ngModel)]="flightOwner.username">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" id="username" name="airlineId" placeholder="Enter Airline Id" required [(ngModel)]="flightOwner.airlineId">
+      </div>
+      <div class="form-group">
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required [(ngModel)]="flightOwner.email">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required [(ngModel)]="flightOwner.password">
+      </div>
+      <div class="submit">
+        <button type="submit" class="btn btn-primary">Create Account</button>
+      </div>
+      <p>Already registered? <a routerLink="/login">Login</a></p>
+    </form>
+  </div>
+    

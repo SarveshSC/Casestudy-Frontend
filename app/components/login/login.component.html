@@ -1,0 +1,31 @@
+<div class="container">
+    <h2>Login</h2>
+    <div class="login-form">
+        <form   #formData=ngForm  (ngSubmit)="readFormData(formData)" >
+            <div class="form-group">
+              <label for="username">UserName</label>
+              <input type="username" class="form-control" name="username"  required  #username="ngModel"  ngModel  placeholder="Enter username"   >
+              <small id="userHelp" class="form-text text-muted">We'll never share your user details with anyone else.</small><br>
+              <span style="color:red"  *ngIf="username.touched && username.invalid" >UserName is required</span>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control"  name="password"  required  #pwd="ngModel"   ngModel placeholder="Enter Password">
+              <span style="color:red"   *ngIf="pwd.touched && pwd.invalid" >Password is mandartory</span>
+            </div>
+            <div class="submit">
+                <button type="submit" class="btn btn-primary" [disabled]="formData.invalid">Login</button>
+                <br>
+                <br>
+                <p>Not a user?  <a [routerLink]="['/signup']">SignUp</a></p>
+            </div>
+        </form>
+
+        <!-- <div class="submit">
+            <button type="submit" class="btn btn-primary" [disabled]="formData.invalid">Login</button>
+            <p>Not a user? <a [routerLink]="['/signup']">SignUp</a></p>
+        </div> -->
+    </div>
+</div>
+<!-- 
+<button (click)="logout()">Logout</button> -->

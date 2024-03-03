@@ -1,0 +1,86 @@
+<form [formGroup]="myForm" (ngSubmit)="updateFlight()">
+    <h1 mat-dialog-title style="align-items: center;">Update the flight</h1>
+    <div mat-dialog-content>
+    
+    <mat-form-field>
+      <mat-label>Flight Code</mat-label>
+      <input formControlName="flightCode" matInput  readonly>
+      <small *ngIf="myForm.get('flightCode')?.hasError('required')" class="text-danger">
+        Flight Code is required.
+      </small>
+      <small *ngIf="myForm.get('flightCode')?.hasError('pattern')" class="text-danger">
+        Flight Code must be in format XX-XXX or XXX-XXXXX (X: A-Z or 0-9).
+      </small>
+      
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Total Seats</mat-label>
+      <input formControlName="totalSeats" matInput readonly>
+      <small *ngIf="myForm.get('totalSeats')?.hasError('required')" class="text-danger">
+        Total seats is required.
+      </small>
+      <small *ngIf="myForm.get('totalSeats')?.hasError('min')" class="text-danger">
+        Total seats must be at least 100.
+      </small>
+      <small *ngIf="myForm.get('totalSeats')?.hasError('max')" class="text-danger">
+        Total seats must be a positive number and less than 180.
+      </small>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Checkin Weight</mat-label>
+      <input formControlName="checkInWeight" matInput [readonly]="this.editData.flightStatus!=='Active'">
+      <small *ngIf="myForm.get('checkInWeight')?.hasError('required')" class="text-danger">
+        Check-in weight is required.
+      </small>
+      <small *ngIf="myForm.get('checkInWeight')?.hasError('max')" class="text-danger">
+        Check-in weight cannot exceed 20.
+      </small>
+      <small *ngIf="myForm.get('checkInWeight')?.hasError('min')" class="text-danger">
+        Check-in weight must be at least 10 and a positive number.
+      </small>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Cabin weight</mat-label>
+      <input formControlName="cabinWeight" matInput  [readonly]="this.editData.flightStatus!=='Active'"  >
+      <small *ngIf="myForm.get('cabinWeight')?.hasError('required')" class="text-danger">
+        Cabin weight is required.
+      </small>
+      <small *ngIf="myForm.get('cabinWeight')?.hasError('max')" class="text-danger">
+        Cabin weight cannot exceed 7.
+      </small>
+      <small *ngIf="myForm.get('cabinWeight')?.hasError('min')" class="text-danger">
+        Cabin weight must be at least 3 and a positive number.
+      </small>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Airline Id</mat-label>
+      <input   formControlName="airlineId" matInput readonly>
+      <small *ngIf="myForm.get('airlineId')?.hasError('required')" class="text-danger">
+        Airline ID is required.
+      </small>
+    </mat-form-field>
+
+    <!-- <mat-form-field>
+      <mat-label>Status</mat-label>
+      <input  formControlName="flightStatus" matInput [readonly]="this.editData.flightStatus==='Active'" >
+      <small *ngIf="this.editData.flightStatus==='Active'">you can make the flight inactive by the delete button</small>
+    </mat-form-field> -->
+
+    <!-- *ngIf="this.editData.flightStatus!=='Active' -->
+     <mat-form-field *ngIf="this.editData.flightStatus!=='Active'">
+      <mat-label>Status</mat-label>
+      <!-- <input  formControlName="flightStatus" matInput [readonly]="this.editData.flightStatus==='Active'" > -->
+      <!-- <small *ngIf="this.editData.flightStatus==='Active'">you can make the flight inactive by the delete button</small> -->
+    <mat-select formControlName="flightStatus">
+      <mat-option value="Active">Active</mat-option>
+      <mat-option value="Inactive">Inactive</mat-option>
+    </mat-select>
+    </mat-form-field>
+    
+    </div>
+    <div mat-dialog-actions>
+        <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Submit</button>
+        <button (click)="closePopup()" mat-raised-button color="warn">close</button>
+    <!-- <button  [matDialogClose]="closedMessage" mat-raised-button color="accent">cancel</button> -->
+    </div>
+    </form>

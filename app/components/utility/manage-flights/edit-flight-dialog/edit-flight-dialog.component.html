@@ -1,0 +1,71 @@
+<!-- <h2 mat-dialog-title>Edit Flight</h2>
+<div mat-dialog-content>
+  <form [formGroup]="flightForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="cabinWeight">Cabin Weight</label>
+      <input type="number" id="cabinWeight" formControlName="cabinWeight">
+    </div>
+    <div>
+      <label for="checkInWeight">Check-in Weight</label>
+      <input type="number" id="checkInWeight" formControlName="checkInWeight">
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" [disabled]="!flightForm.valid" (click)="onSubmit()">Update</button>
+</div> -->
+<form [formGroup]="myForm" (ngSubmit)="saveFlightTrip()">
+<h1 mat-dialog-title style="align-items: center;">Schedule a trip</h1>
+<div mat-dialog-content>
+
+<mat-form-field>
+  <mat-label>Source</mat-label>
+  <input formControlName="source" matInput [matAutocomplete]="auto1" [readonly]="isReadable">
+  <mat-autocomplete #auto1="matAutocomplete" >
+  <mat-option *ngFor="let option of filteredOptionsForSource | async " [value]="option.iataCode">
+    {{option.iataCode}}-{{option.location}}-{{option.name}}
+  </mat-option>
+</mat-autocomplete>
+</mat-form-field>
+
+
+
+<mat-form-field>
+  <mat-label>Destination</mat-label>
+  <input  formControlName="destination"   matInput [matAutocomplete]="auto" >
+  <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+    <mat-option *ngFor="let option of filteredOptionsForDestination | async " [value]="option.iataCode">
+      {{option.iataCode}}-{{option.location}}-{{option.name}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+
+
+
+
+
+<mat-label>Departure</mat-label>
+<input type="datetime-local"  [min]="minDate"  formControlName="departure" matInput>
+
+
+<!-- <mat-form-field> -->
+  <mat-label>Arrival</mat-label>
+  <input type="datetime-local" [min]="minDate" formControlName="arrival" matInput>
+<!-- </mat-form-field> -->
+<br>
+<mat-form-field>
+  <mat-label>Ticket Price</mat-label>
+  <input   formControlName="ticketPrice" matInput>
+  <small *ngIf="myForm.get('ticketPrice')?.hasError('min')" class="text-danger">MINIMUM TICKET PRICE MUST BE 1000 </small>
+</mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid ">Submit</button>
+  <button (click)="closePopup()" mat-raised-button color="warn">close</button>
+<!-- <button  [matDialogClose]="closedMessage" mat-raised-button color="accent">cancel</button> -->
+<small style="font-size: 30px; " *ngIf="isErrorExists" class="text-danger">&timesb;{{errorMessage}}</small>
+</div>
+</form>
+

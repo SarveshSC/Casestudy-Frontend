@@ -1,0 +1,59 @@
+
+<div class="header">
+  <h2>Search Flights</h2>
+</div>
+<div class="form">
+  <form #formData="ngForm" (ngSubmit)="searchFlight(formData.value)">
+    <div class="form-row">
+      <div class="col">
+        <input type="text" class="form-control" name="source" placeholder="From" required ngModel>
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" name="destination" placeholder="To" required ngModel>
+      </div>
+      <div class="col">
+        <input type="date" class="form-control" name="date" required ngModel>
+      </div>
+      <div class="col">
+        <button type="submit" class="btn btn-primary" [disabled]="formData.invalid">Search</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="info">
+  <h3>Flights from {{this.flight.source.location}} to {{this.flight.destination.location}}</h3>
+</div>
+<div>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Flight Trip Id</th>
+        <th scope="col">Departure</th>
+        <th scope="col">Arrival</th>
+        <th scope="col">Ticket Price</th>
+        <th scope="col">Status</th>
+        <th scope="col">Filled Seats</th>
+        <th scope="col">Book</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let flightTrip of flightList; let i=index">
+        <td>{{flightTrip.flightTripId}}</td>
+        <td>{{ flightTrip.departure | date : 'MMM d, y, h:mm:ss a' }}</td>
+        <td>{{ flightTrip.arrival | date : 'MMM d, y, h:mm:ss a' }}</td>
+        <td>{{ flightTrip.ticketPrice }}</td>
+        <td>{{ flightTrip.status }}</td>
+        <td>{{ flightTrip.filledSeats }}</td>
+        <td><button mat-flat-button routerLink="book-flight/{{flightTrip.flightTripId}}" (click)="setFlightData(flight, flightTrip.ticketPrice)">Book</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <mat-paginator
+  class="table"
+  [pageSize]="pageSize"
+  [length]="totalItems"
+  showFirstLastButtons
+  (page)="onPageChange($event)"
+></mat-paginator>
+</div> 

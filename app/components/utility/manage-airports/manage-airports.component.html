@@ -1,0 +1,35 @@
+<h2>Airports</h2>
+
+<input type="text" placeholder="Search" [(ngModel)]="searchText" class="search-input" (input)="onSearch()">
+<button (click)="openAddForm()" class="add-airport-button">ADD AIRPORT</button>
+<!-- {{airportList | json}} -->
+
+<table class="table" >
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" style="width: 10%">#</th>
+      <th scope="col">IATACode</th>
+      <th scope="col">Airport Name</th>
+      <th scope="col">Location</th>
+      <th scope="col">Modify</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let airport of getCurrentPageItems() | customername:searchText; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ airport.iataCode }}</td>
+      <td>{{ airport.name }}</td>
+      <td>{{ airport.location }}</td>
+      <td>
+        <button mat-icon-button (click)="openUpdateForm(airport.iataCode)"><mat-icon>edit</mat-icon></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<mat-paginator
+  class="table"
+  [pageSize]="5"
+  [length]="totalItems"
+  showFirstLastButtons
+  (page)="onPageChange($event)"
+></mat-paginator>

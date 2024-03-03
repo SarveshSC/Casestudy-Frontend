@@ -1,0 +1,64 @@
+<h2>Bookings of {{data.username}}</h2>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Customer username</th>
+          <th scope="col">Booking Id</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Booking date and time</th>
+          <th scope="col">Status</th>
+          <th scope="col">Flight Trip Id</th>
+          <!-- <th scope="col">Number of passengers</th> -->
+          <th scope="col">passengers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let booking of bookingList;let i=index">
+        <tr>
+            <td>{{i+1}}</td>
+            <td>{{data.username}}</td>
+            <td>{{booking.bookingId}}</td>
+            <td>{{booking.amount}}</td>
+            <td>{{booking.bookingDateTime}}</td>
+            <td>{{booking.status}}</td>
+            <td>{{booking.flightTripId}}</td>
+            <!-- <td>{{booking.passengers.size}}</td> -->
+            <td><button (click)="togglePassengers(booking)">view passengers</button></td>
+            <!-- <td><button (click)="print(booking.bookingId)">print</button></td> -->
+            <!-- <td><button (click)="download(booking.bookingId)">download</button></td> -->
+
+        </tr>
+        <tr *ngIf="booking.showPassengers">
+            <td colspan="8">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Passenger Id</th>
+                        <th>Name</th>
+                        <th>age</th>
+                        <th>gender</th>
+                        <th>seat</th>
+                        <button (click)="togglePassengers(booking)">&times;</button>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let passenger of booking.passengers">
+                        <td>{{passenger.passengerId}}</td>
+                        <td>{{passenger.name}}</td>
+                        <td>{{passenger.age}}</td>
+                        <td>{{passenger.gender}}</td>
+                        <td>{{passenger.seatNo}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        </tr>
+        </ng-container>
+      </tbody>
+
+</table>
+<div mat-dialog-actions>
+    <button (click)="closePopup()" mat-raised-button color="warn">close</button>
+</div>

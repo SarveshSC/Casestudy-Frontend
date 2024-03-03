@@ -1,0 +1,9 @@
+h2{
+    padding: 10px;
+}
+.table{
+    width: 70vw;
+    position: relative;
+    margin: auto;
+    box-shadow: 5px 5px 5px;
+}

@@ -1,0 +1,9 @@
+ul{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
