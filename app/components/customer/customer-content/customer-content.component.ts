@@ -7,7 +7,7 @@ import { CustomerDashboardService } from 'src/app/service/customer-dashboard.ser
   styleUrls: ['./customer-content.component.css']
 })
 export class CustomerContentComponent implements AfterContentChecked{
-  selected : string = '';
+  selected : string = 'bookings';
 
   constructor(private dashboardService : CustomerDashboardService) {}
 

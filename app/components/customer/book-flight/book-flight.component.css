@@ -1,0 +1,22 @@
+.source{
+    display: flex;
+    gap: 15px;
+}
+
+.destination{
+    display: flex;
+    gap: 15px;
+}
+
+h4{
+    width: max-content;
+}
+
+.airport{
+    display: flex;
+    gap: 15vw;
+}
+
+.btn-primary{
+    margin: 15px;
+}

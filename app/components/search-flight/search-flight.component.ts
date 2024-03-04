@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 import { flightSearch } from 'src/app/model/flightSearch.model';
 import { flightTrip } from 'src/app/model/flightTrip.model';
 import { BookingService } from 'src/app/service/booking.service';
@@ -33,7 +34,8 @@ export class SearchFlightComponent {
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
-  constructor(private tripService : FlightTripService, private customerService : CustomerDashboardService, private bookingService : BookingService){ }
+  constructor(private tripService : FlightTripService, private customerService : CustomerDashboardService, private bookingService : BookingService, 
+    private route : Router){ }
 
   searchFlight(formdata : any){ 
     this.flight = formdata;
@@ -55,11 +57,10 @@ export class SearchFlightComponent {
     return this.flightList.slice(startIndex, startIndex + this.pageSize);
   }
 
-  bookFlight(){
-    
-  }
-
   setFlightData(flight : flightSearch, ticketPrice : number){
+    if(localStorage.getItem('username') === 'Guest'){
+      this.route.navigate(['/login']);
+    }
     this.bookingService.clearSelectedSeats();
     this.customerService.setFlightData(flight, ticketPrice);
   }

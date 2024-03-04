@@ -1,56 +1,35 @@
-<p>book-flight works!</p>
-
 <div class="container">
   <h2>Review your Journey</h2>
-  <br />
-  <h4>{{ source }}</h4>
-  <br />
-  <h4>{{ destination }}</h4>
-  <br />
-
-  <button routerLink="/customer/select-seats/{{ this.flightTripId }}">
+  <p>{{flight.date | date : 'MMM d, y, h:mm a'}}</p>
+  <br>
+  <div class="airport">
+    <div class="source">
+      <div>
+        <mat-icon>flight_takeoff</mat-icon>
+      </div>
+      <div>
+        <h4> {{ source }}</h4> 
+        <p>{{flight.source.name}}</p>
+        <p>{{flight.source.location}}</p>
+      </div>
+    </div>
+    <div class="destination">
+      <div>
+        <mat-icon>flight_land</mat-icon>
+      </div>
+      <div>
+        <h4> {{ destination }}</h4> 
+        <p>{{flight.destination.name}}</p>
+        <p>{{flight.destination.location}}</p>
+      </div>
+    </div>
+  </div>
+  <br>
+  <h4>Ticket Price : {{ticketPrice | currency : 'INR' : 'symbol'}}</h4> 
+  <button routerLink="/customer/select-seats/{{ this.flightTripId }}" mat-raised-button>
     Select Seats
   </button>
-  <!-- {{selectedSeats.size}} -->
-  <!-- <div class="login-form form-group">
-    <label for="form" *ngIf="selectedSeats.size > 0" >
-        <h3>Passenger Information</h3>
-    </label>
-    <form #formData="ngForm" (ngSubmit)="readFormData(formData)">
-      {{selectedSeats | json}}
-      <div *ngFor="let seat of selectedSeats, let i = index">
-        <div class="row">
-          <div class="col">
-            <input type="text" id="name{{i}}" name="name{{i}}" class="form-control" [(ngModel)]="passengers[i].age" required placeholder="Name">
-          </div>
-          <div class="col">
-            <label for="age">Age</label>
-            <input type="number" id="age{{i}}" name="age{{i}}" class="form-control" [(ngModel)]="passengers[i].name" required placeholder="Age">
-          </div>
-          <div class="col">
-            <select id="gender{{i}}" name="gender{{i}}" class="form-control" [(ngModel)]="passengers[i].gender" required>
-              <option disabled selected>Gender</option>
-              <option value="Male">Male</option>
-              <option value="Others">Female</option>
-              <option value="Female">Others</option>
-            </select>
-          </div>
-          <div class="col">
-            <input type="text" id="seatNo{{i}}" name="seatNo{{i}}" [(ngModel)]="passengers[i].seatNo" readonly [value]="seat" value="{{seat}}" placeholder="{{seat}}">
-          </div>
-        </div>
-      </div>
-      <div class="submit" *ngIf="selectedSeats.size > 0">
-        <button
-          type="submit"
-          class="btn btn-primary"
-          [disabled]="formData.invalid  && selectedSeats.size > 0">Continue
-        </button>
-      </div>
-    </form>
-  </div> -->
   <form #formData="ngForm" (ngSubmit)="readFormData(formData)">
-    <h2>Ticket Price : {{ticketPrice | currency : 'INR' : 'symbol'}}</h2>
     <label for="form" *ngIf="selectedSeats.size > 0" >
       <h3>Passenger Information</h3>
   </label>

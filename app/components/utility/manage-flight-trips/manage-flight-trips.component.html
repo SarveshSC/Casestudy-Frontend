@@ -5,7 +5,6 @@
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">FLight  Id</th>
       <th scope="col">FLight Trip Id</th>
       <th scope="col">Source</th>
       <th scope="col">Destination</th>
@@ -16,19 +15,18 @@
       <th scope="col">Status</th>
       <th scope="col">Modify</th>
       <th scope="col">Delete</th>
-      <th scope="col">View all Bookings</th>
+      <th scope="col" style="width: 15%;">View Bookings</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let flightTrip of getCurrentPageItems()">
-      <td>{{ flightTrip.flightId }}</td>
       <td>{{ flightTrip.flightTripId }}</td>
       <td>{{ flightTrip.source }}</td>
       <td>{{ flightTrip.destination }}</td>
-      <td>{{ flightTrip.departure }}</td>
-      <td>{{ flightTrip.arrival }}</td>
+      <td>{{ flightTrip.departure | date : 'MMM d, y, h:mm a'}}</td>
+      <td>{{ flightTrip.arrival | date : 'MMM d, y, h:mm a'}}</td>
       <td>{{ flightTrip.filledSeats }}</td>
-      <td>{{ flightTrip.ticketPrice }}</td>
+      <td>{{ flightTrip.ticketPrice | currency : 'INR' : 'symbol' }}</td>
       <td>{{ flightTrip.status }}</td>
       <td>
         <button *ngIf="flightTrip.status !== 'Cancelled'" mat-icon-button (click)="openEditForm(flightTrip.flightTripId)">
@@ -41,7 +39,7 @@
       <td>
         <button
           mat-flat-button
-          (click)="simulateClick(flightTrip.flightTripId)">View All Bookings</button>
+          (click)="simulateClick(flightTrip.flightTripId)">View Bookings</button>
       </td>
     </tr>
   </tbody>

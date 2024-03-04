@@ -1,6 +1,8 @@
-<h2>Flights </h2>
-<!-- could add Airline Name -->
-<button (click)="openAddForm()">AddFlight</button>
+<div class="header">
+  <h2>Flights </h2>
+  <!-- could add Airline Name -->
+  <button mat-flat-button (click)="openAddForm()" class="add">AddFlight</button>
+</div>
 
 <table class="table">
   <thead class="thead-dark">
@@ -16,7 +18,7 @@
       <th scope="col">Modify</th>
       <th scope="col">Delete</th>
       <th scope="col">Add a schedue</th>
-      <th scope="col">View Trips</th>
+      <th scope="col" style="width: 15%;">View Trips</th>
     </tr>
   </thead>
   <tbody>

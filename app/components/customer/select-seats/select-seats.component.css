@@ -66,3 +66,8 @@ a:hover span{
 .disabled{
   pointer-events: none;
 }
+
+.airport{
+  display: flex;
+  gap: 15vw;
+}

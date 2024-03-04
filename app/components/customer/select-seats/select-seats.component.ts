@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { airports } from 'src/app/model/airport.model';
+import { flightSearch } from 'src/app/model/flightSearch.model';
 import { seat } from 'src/app/model/seat.model';
 import { BookingService } from 'src/app/service/booking.service';
 import { CustomerDashboardService } from 'src/app/service/customer-dashboard.service';
@@ -11,7 +13,24 @@ import { CustomerDashboardService } from 'src/app/service/customer-dashboard.ser
 })
 export class SelectSeatsComponent implements OnInit{
 
+  source : string = '';
+  destination : string = '';
+
   flightTripId : number = 0;
+  flight : flightSearch = {
+    source : {
+      iataCode : '',
+      name : '',
+      location : ''
+    },
+    destination : {
+      iataCode : '',
+      name : '',
+      location : ''
+    },
+    date : new Date()
+  }
+
   leftRows = [
     { name: 'F'},
     { name: 'E'},
@@ -41,6 +60,7 @@ export class SelectSeatsComponent implements OnInit{
       this.flightTripId = params['flightTripId'];
       // console.log(this.flightTripId);
     });
+    this.getFlightData();
     this.generateTotalSeats();
     this.getVacantSeats();
     this.getTicketPrice();
@@ -127,5 +147,28 @@ export class SelectSeatsComponent implements OnInit{
 
   getTicketPrice(){
     this.ticketPrice = this.customerService.getTicketPrice();
+  }
+
+  getFlightData() {
+    this.source = localStorage.getItem('source') || '';
+    this.destination = localStorage.getItem('destination') || '';
+
+    // console.log(this.source + ' ' + this.destination);
+
+    if (this.source) {
+      this.customerService.getAirport(this.source).subscribe(airport => {
+        if (airport) {
+          this.flight.source = airport;
+        }
+      });
+    }
+    if (this.destination) {
+      this.customerService.getAirport(this.destination).subscribe(airport => {
+        if (airport) {
+          this.flight.destination = airport;
+        }
+      });
+    }
+    this.flight = this.customerService.getFlightData();
   }
 }
