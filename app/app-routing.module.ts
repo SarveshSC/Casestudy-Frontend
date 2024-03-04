@@ -4,8 +4,6 @@ import { CustomerSignupComponent } from './components/customer-signup/customer-s
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { SearchFlightComponent } from './components/search-flight/search-flight.component';
-import { ManageAirportsComponent } from './components/utility/manage-airports/manage-airports.component';
-import { ManageAirlinesComponent } from './components/utility/manage-airlines/manage-airlines.component';
 import { FlightOwnerDashboardComponent } from './components/flight-owner-dashboard/flight-owner-dashboard.component';
 import { AuthguardService } from './service/authguard.service';
 import { HomepageComponent } from './components/homepage/homepage.component';
@@ -21,29 +19,38 @@ const routes: Routes = [
     path:'admin',
     component : AdminDashboardComponent,
     canActivate:[AuthguardService],
-    data:{requiredRole : 'Admin'}
+    data:{requiredRole : 'Admin'},
   },
   {
     path:'flight-owner', 
     component : FlightOwnerDashboardComponent,
     canActivate:[AuthguardService],
-    data:{requiredRole : 'FlightOwner'}
+    data:{requiredRole : 'FlightOwner'},
+    // children: [
+    //   { path: 'flight-trip/:flightcode', component: ManageFlightTripsComponent },
+    // ],
   },
   {
     path:'customer',
     component : CustomerDashboardComponent,
     canActivate:[AuthguardService],
-    data:{requiredRole : 'Customer'}
+    data:{requiredRole : 'Customer'},
+    // children: [
+    //   { path: 'book-flight/:flightTripId', component: BookFlightComponent },
+    //   { path: 'select-seats/:flightTripId', component: SelectSeatsComponent },
+    //   { path: 'booking-success', component: BookingSuccessComponent },
+    // ],
   },
   {path:'',component:HomepageComponent},
   {path:'search-flights', component:SearchFlightComponent},
   {path:'login',component:LoginComponent},
   {path:'signup',component:CustomerSignupComponent},
-  {path:'flight-trip/:flightcode',component:ManageFlightTripsComponent},
   {path: 'flight-owner/signup',component:FlightOwnerSignupComponent},
+  {path:'flight-trip/:flightcode',component:ManageFlightTripsComponent},
   {path: 'customer/book-flight/:flightTripId',component:BookFlightComponent},
   {path: 'customer/select-seats/:flightTripId', component:SelectSeatsComponent},
-  {path: 'customer/booking-success', component: BookingSuccessComponent}
+  {path: 'customer/booking-success', component: BookingSuccessComponent},
+  { path: '**', component: HomepageComponent }
  
 ];
 
@@ -51,4 +58,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule{ }

@@ -15,7 +15,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let owner of getCurrentPageItems()|customername:searchText ; let i = index">
+    <tr *ngFor="let owner of getCurrentPageItems() ; let i = index">
       <td>{{ i + 1 }}</td>
       <td>{{ owner.username }}</td>
       <td>{{ (owner.airlineFromUser.airlineName) }}</td>

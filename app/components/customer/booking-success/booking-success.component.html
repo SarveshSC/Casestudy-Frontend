@@ -1,3 +1,24 @@
-<p>booking-success works!</p>
+<div class="info">
+  <h2>Booking Successfull</h2>
+  <h4>Payment Id : {{ paymentId }}</h4>
+</div>
 
-<button routerLink="/customer">Back to Dashboard</button>
+<div class="airport">
+  <div>
+    <h4>
+      <mat-icon>flight_takeoff</mat-icon> {{ flight.source.iataCode }},
+      {{ flight.source.location }}
+    </h4>
+  </div>
+  <div>
+    <h4>
+      <mat-icon>flight_land</mat-icon> {{ flight.destination.iataCode }},
+      {{ flight.destination.location }}
+    </h4>
+  </div>
+</div>
+{{ flight.date | date : "M/d/yy, h:mm a" }}
+<button (click)="print()">Ticket <mat-icon><mat-icon>save_alt</mat-icon></mat-icon></button> 
+<button mat-raised-button (click)="redirectToDashboard()">
+  Return to Dashboard
+</button>

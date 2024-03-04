@@ -64,6 +64,10 @@ export class SelectSeatsComponent implements OnInit{
     this.generateTotalSeats();
     this.getVacantSeats();
     this.getTicketPrice();
+
+    if(this.ticketPrice === 0){
+      this.router.navigateByUrl('/customer');
+    }
   }
 
   selectSeat(data : any){

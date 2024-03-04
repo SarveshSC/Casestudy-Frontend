@@ -35,4 +35,9 @@ export class ManageCustomerBookingsComponent {
     this.totalItems = this.bookingList.length;
     return this.bookingList.slice(startIndex, startIndex + this.pageSize);
   }
+
+  cancel(bookingId : any){
+    console.log(bookingId);
+    this.service.cancelBooking(bookingId)
+  }
 }

@@ -6,12 +6,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule} from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CustomerDashboardComponent } from './components/customer-dashboard/customer-dashboard.component';
 import { CustomerSignupComponent } from './components/customer-signup/customer-signup.component';
@@ -37,6 +37,7 @@ import { FlightOwnerSignupComponent } from './components/flight-owner-signup/fli
 import { BookFlightComponent } from './components/customer/book-flight/book-flight.component';
 import { SelectSeatsComponent } from './components/customer/select-seats/select-seats.component';
 import { EditFlightDialogComponent } from './components/utility/manage-flights/edit-flight-dialog/edit-flight-dialog.component';
+import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { FlightFormsComponent } from './components/utility/manage-flights/flight-forms/flight-forms/flight-forms.component';
@@ -47,6 +48,10 @@ import { DeleteTripComponent } from './components/utility/manage-flight-trips/de
 import { DeleteFlightsComponent } from './components/utility/manage-flights/delete-flights/delete-flights.component';
 import { BookingsComponent } from './components/utility/manage-customers/view-bookings/bookings/bookings.component';
 import { ManageCustomerBookingsComponent } from './components/utility/manage-customer-bookings/manage-customer-bookings/manage-customer-bookings.component';
+import { AddAirportsFormComponent } from './components/utility/manage-airports/add-airports-form/add-airports-form/add-airports-form.component';
+import { UpdateAirportsFormComponent } from './components/utility/manage-airports/update-airports-form/update-airports-form/update-airports-form.component';
+import { CustomernamePipe } from './components/utility/manage-customers/pipes/customername.pipe';
+import { AddAirlinesComponent } from './components/utility/manage-airlines/add-airlines/add-airlines/add-airlines.component';
 import { BookingSuccessComponent } from './components/customer/booking-success/booking-success.component';
 @NgModule({
   declarations: [
@@ -83,7 +88,11 @@ import { BookingSuccessComponent } from './components/customer/booking-success/b
     DeleteFlightsComponent,
     BookingsComponent,
     ManageCustomerBookingsComponent,
-    BookingSuccessComponent,
+    AddAirportsFormComponent,
+    UpdateAirportsFormComponent,
+    CustomernamePipe,
+    AddAirlinesComponent,
+    BookingSuccessComponent
   ],
   imports: [
     BrowserModule,
@@ -101,6 +110,9 @@ import { BookingSuccessComponent } from './components/customer/booking-success/b
     MatSelectModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
+    CommonModule
+    
+    
   ],
   providers: [],
   bootstrap: [AppComponent],

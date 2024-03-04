@@ -2,24 +2,41 @@
 <div class="header">
   <h2>Search Flights</h2>
 </div>
-<div class="form">
-  <form #formData="ngForm" (ngSubmit)="searchFlight(formData.value)">
+  <form [formGroup]="myForm" (ngSubmit)="searchFlight()">
+<div mat-dialog-content>
+  
     <div class="form-row">
       <div class="col">
-        <input type="text" class="form-control" name="source" placeholder="From" required ngModel>
+        <mat-form-field>
+        <input formControlName="source" matInput placeholder="Source" [matAutocomplete]="auto1" >
+        <mat-autocomplete #auto1="matAutocomplete" >
+          <mat-option *ngFor="let option of filteredOptionsForSource | async " [value]="option.iataCode">
+            {{option.iataCode}}-{{option.location}}-{{option.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
       </div>
       <div class="col">
-        <input type="text" class="form-control" name="destination" placeholder="To" required ngModel>
+        <mat-form-field>
+        <input formControlName="destination" matInput placeholder="Destination" [matAutocomplete]="auto" >
+        <mat-autocomplete #auto="matAutocomplete" >
+          <mat-option *ngFor="let option of filteredOptionsForDestination | async " [value]="option.iataCode">
+            {{option.iataCode}}-{{option.location}}-{{option.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
       </div>
       <div class="col">
-        <input type="date" class="form-control" name="date" required ngModel>
+        <!-- <input type="date" class="form-control" name="date" required ngModel> -->
+        <input type="date" formControlName="date" matInput placeholder="dATE" >
       </div>
       <div class="col">
-        <button type="submit" class="btn btn-primary" [disabled]="formData.invalid">Search</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!this.myForm.valid">Search</button>
       </div>
     </div>
-  </form>
+  
 </div>
+</form>
 <div class="info" *ngIf="getCurrentPageItems().length > 0">
   <h3>Flights from {{this.flight.source.location}} to {{this.flight.destination.location}}</h3>
 </div>
@@ -42,10 +59,10 @@
         <td>{{flightTrip.flightTripId}}</td>
         <td>{{ flightTrip.departure | date : 'MMM d, y, h:mm:ss a' }}</td>
         <td>{{ flightTrip.arrival | date : 'MMM d, y, h:mm:ss a' }}</td>
-        <td>{{ flightTrip.ticketPrice }}</td>
+        <td>{{ flightTrip.ticketPrice | currency:'INR'}}</td>
         <td>{{ flightTrip.status }}</td>
         <td>{{ flightTrip.filledSeats }}</td>
-        <td><button mat-flat-button routerLink="/customer/book-flight/{{flightTrip.flightTripId}}" (click)="setFlightData(flight, flightTrip.ticketPrice)">Book</button></td>
+        <td><button mat-flat-button (click)="setFlightData(flight, flightTrip.ticketPrice, flightTrip.flightTripId)">Book</button></td>
       </tr>
     </tbody>
   </table>

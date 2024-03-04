@@ -56,8 +56,11 @@ a:hover span{
 }
 .payment{
   background-color: white;
+  opacity: 50%;
   width: 15vw;
   height: auto;
+  padding: 20px;
+  margin-right: 20px;
 }
 .box{
   text-align: center;

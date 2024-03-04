@@ -39,8 +39,8 @@
     </div>
   <div class="payment">
     Total Seats = {{ selectedSeats.size }}<br />
-    Fare for 1 adult {{ticketPrice}} <br>
-    Total Amount = {{ ticketPrice * selectedSeats.size }}
-    <button (click)="continue()">Continue</button>
+    Fare for 1 adult {{ticketPrice | currency : 'INR' : 'symbol'}} <br>
+    Total Amount = {{ ticketPrice * selectedSeats.size | currency : 'INR' : 'symbol'}}
+    <button mat-flat-button (click)="continue()">Continue</button>
   </div>
 </div>

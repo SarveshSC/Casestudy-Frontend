@@ -57,4 +57,17 @@ export class CustomerDashboardService {
   getCustomerBookings() : Observable<booking[]>{
     return this.http.get<booking[]>('http://localhost:8080/simply-fly/customers/booking/get-by-customer/' + localStorage.getItem('username'), {headers : this.getHeaders()});
   }
+
+  printTicket(bookingId:any){
+    return this.http.get("http://localhost:8080/simply-fly/customers/getPdf/"+bookingId,{headers:this.getHeaders(),observe:'response',responseType:'blob'})
+  }
+
+  sendEmail(bookingId : any){
+    console.log('send email called')
+    this.http.get("http://localhost:8080/simply-fly/customers/mail-ticket/"+bookingId, {headers : this.getHeaders()}).subscribe(
+      (res) => console.log(res),
+      (err) => console.error(err)
+    );
+  }
+
 }

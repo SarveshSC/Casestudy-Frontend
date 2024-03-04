@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BookingService } from './booking.service';
+import { CustomerDashboardService } from './customer-dashboard.service';
 
 declare var Razorpay: any;
 
@@ -38,7 +39,7 @@ export class PaymentService {
         contact: '9999999999'
       },
       theme: {
-        color: '#F37254'
+        color: '#57A5FF'
       }
     };
     var razorpay = new Razorpay(options);

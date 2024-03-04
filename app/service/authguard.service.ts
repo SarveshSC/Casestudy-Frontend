@@ -18,7 +18,8 @@ export class AuthguardService implements CanActivate {
     }
     else{
       console.log('Authorization failed redirecting')
-      this.router.navigate(['/signup']);
+      alert("You don't have access to this page")
+      this.router.navigate(['/']);
       return false;
     }
   }

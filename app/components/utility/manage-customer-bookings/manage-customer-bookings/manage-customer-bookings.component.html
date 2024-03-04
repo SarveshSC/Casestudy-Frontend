@@ -9,22 +9,18 @@
       <th scope="col">Date</th>
       <th scope="col">No. of Passengers</th>
       <th scope="col">Amount</th>
-      <th scope="col">Payment Status</th>
       <th scope="col">Booking Status</th>
-      <th scope="col">Modify</th>
-      <th scope="col">Delete</th>
+      <th scope="col">Cancel</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let booking of bookingList; let i = index">
+    <tr *ngFor="let booking of getCurrentPageItems(); let i = index">
       <td>{{ booking.bookingId }}</td>
       <td>{{ booking.bookingDateTime | date}}</td>
       <td>{{ booking.passengers.length }}</td>
       <td>{{ booking.amount | currency : 'INR' : 'symbol'}}</td>
-      <td>{{ booking.payments.status }}</td>
       <td>{{ booking.status }}</td>
-      <td><button type="button" class="btn btn-info">Modify</button></td>
-      <td><button type="button" class="btn btn-danger">Danger</button></td>
+      <td><button mat-icon-button (click)="cancel(booking.bookingId)"><mat-icon>cancel</mat-icon></button></td>
     </tr>
   </tbody>
 </table>

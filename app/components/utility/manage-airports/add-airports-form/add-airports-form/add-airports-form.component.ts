@@ -31,7 +31,7 @@ constructor(private formBuilder:FormBuilder,private ref:MatDialogRef<AddAirports
     }
 
     addAirport(){
-      this.adminDashBoardService.addAAirport(this.myForm.value).subscribe({
+      this.adminDashBoardService.addAirport(this.myForm.value).subscribe({
         next:(res)=>{
           this.message="flight added succesfully"
           this.isErrorExists=false;

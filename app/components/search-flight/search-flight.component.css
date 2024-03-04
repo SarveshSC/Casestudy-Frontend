@@ -18,3 +18,31 @@ h2{
 tbody{
     background-color: rgba(255, 255, 255, 0.5);
 }
+mat-card{
+    margin: 2%;
+    text-align: left;
+}
+
+.mat-mdc-form-field{
+    width: 98%;
+    margin: 1%;
+}
+
+.mat-50{
+    width: 48%;
+    margin: 1%;
+}
+/* Style the date input */
+input[type="date"] {
+    width: calc(100% - 24px); /* Same width as mat-input */
+    padding: 8px; /* Same padding as mat-input */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-bottom: 10px; /* Add some bottom margin */
+    height: 36px; /* Same height as mat-input */
+}
+
+
+

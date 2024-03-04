@@ -14,7 +14,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let customer of getCurrentPageItems() | customername:searchText ; let i = index">
+    <tr *ngFor="let customer of getCurrentPageItems()  ; let i = index">
       <td>{{i+1}}</td>
       <td>{{ customer.username }}</td>
       <td>{{ customer.name }}</td>

@@ -6,6 +6,7 @@ import { seat } from '../model/seat.model';
 import { ReturnStatement } from '@angular/compiler';
 import { passenger } from '../model/passenger';
 import { bookingInput } from '../model/bookingInput.model';
+import { CustomerDashboardService } from './customer-dashboard.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,22 @@ export class BookingService {
   bookingId : number = 0;
   passengers : passenger[] = [];
   paymentId : string = '';
+  bookingInfo : booking = {
+    payments: {
+      paymentId: '',
+      status: '',
+      name: '',
+      amount: 0
+    },
+    bookingId: '',
+    amount: 0,
+    bookingDateTime: new Date,
+    status: '',
+    passengers: [],
+    showPassengers: false,
+    flightTripId: 0,
+    customerId: 0
+  };
   
   setBookingId(data:any){
     this.bookingId=data
@@ -27,7 +44,7 @@ export class BookingService {
     return this.bookingId
   }
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient, private customerService : CustomerDashboardService) { }
 
   private getHeaders() : HttpHeaders{
     const token = localStorage.getItem('token');
@@ -72,7 +89,7 @@ export class BookingService {
     this.selectedSeats = new Set<seat>();
   }
 
-  bookFlights(){
+  bookFlights() {
     console.log('book flights called ' + this.flightTripId + ' ' + this.passengers);
 
     const requestBody = {
@@ -88,17 +105,43 @@ export class BookingService {
     console.log(requestBody);
 
     this.http.post<booking>(this.baseURL+'customers/booking/book-flight/' + localStorage.getItem('username') + '/' + this.flightTripId, requestBody, {headers : this.getHeaders()}).subscribe(
-      (response) => console.log(response),
+      (response) => {
+        console.log(response),
+        this.bookingInfo.bookingId = response.bookingId;
+        this.bookingInfo.amount = response.amount;
+        this.bookingInfo.bookingDateTime = response.bookingDateTime;
+        this.bookingInfo.passengers = response.passengers;
+        this.bookingInfo.payments = response.payments;
+        this.bookingInfo.status = response.status;
+        this.bookingInfo.flightTripId = response.flightTripId;
+
+        console.log(this.bookingInfo);
+        this.customerService.sendEmail(this.bookingInfo.bookingId);
+      },
       (error) => console.error(error)
     )
   }
 
   cancelBooking(bookingId : number){
     console.log('delete')
-    this.http.put(this.baseURL+'customers/booking/cancel-flight/'+ localStorage.getItem('username') + '/' + bookingId, {headers : this.getHeaders()});
+    console.log(bookingId)
+    console.log(this.baseURL+'customers/booking/cancel-flight/'+ localStorage.getItem('username') + '/' + bookingId)
+    this.http.put<string>(this.baseURL+'customers/booking/cancel-flight/'+ localStorage.getItem('username') + '/' + bookingId,{}, {headers : this.getHeaders()}).subscribe(
+      (response) => console.log(response),
+      (error) => console.error(error)
+    );
   }
 
   setPaymentId(paymentId : string){
     this.paymentId = paymentId;
+  }
+
+  getCustomerBookings() : Observable<booking[]>{
+    console.log(this.baseURL + 'customers/booking/get-by-customer/' + localStorage.getItem('username'));
+    return this.http.get<booking[]>(this.baseURL + 'customers/booking/get-by-customer/' + localStorage.getItem('username'), {headers : this.getHeaders()});
+  }
+
+  getBookingInfo() : booking{
+    return this.bookingInfo;
   }
 }

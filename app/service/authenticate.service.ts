@@ -12,6 +12,7 @@ export class AuthenticateService {
   username : string = 'Guest';
   token : any;
   role : any;
+  timer : any;
 
   isLoggedIn : boolean = false;
 
@@ -62,21 +63,41 @@ export class AuthenticateService {
     // console.log(this.baseUrl + 'login');
     let response = this.http.post(this.baseUrl + 'login', AuthRequest, {
       responseType: 'text' as 'json',
-    });
-
-    // let response = this.authenticateService.generateToken(this.AuthRequest);
-
-    // console.log(this.AuthRequest);
-    response.subscribe((genToken: any) => {
+    }).subscribe((genToken)=>{
       this.token = genToken;
       this.role = this.getRole(genToken);
       this.authorize(genToken);
 
       this.navigate(this.token);
-
-      // this.isLoggedIn = true;
+      this.isLoggedIn = true;
       localStorage.setItem('isLoggedIn','true');
+    },(error)=>{
+     alert("Invalid Credentials")
     });
+
+    // let response = this.authenticateService.generateToken(this.AuthRequest);
+
+    // console.log(this.AuthRequest);
+    
+    // response.subscribe((genToken: any) => {
+      
+    //   this.token = genToken;
+    //   this.role = this.getRole(genToken);
+    //   this.authorize(genToken);
+
+    //   this.navigate(this.token);
+
+    //   this.isLoggedIn = true;
+    //   localStorage.setItem('isLoggedIn','true');
+    // });
+
+    this.timer = setTimeout(() => {
+      alert('Your session will expire soon. Please refresh your session or log in again.');
+    }, 30 * 60 * 1000,
+    this.logout()); // 30 minutes in milliseconds
+    // Redirect to dashboard or desired page
+    // this.logout();
+    this.route.navigate(['/login']);
   }
 
   private navigate(token: any) {
@@ -108,6 +129,7 @@ export class AuthenticateService {
     localStorage.setItem('username', 'Guest');
     console.log(localStorage.getItem('username'));
 
+    clearTimeout(this.timer);
     this.route.navigate(['/login']);
     this.username = 'Guest';
   }

@@ -21,6 +21,7 @@
     </tr>
   </thead>
   <tbody>
+    <!-- {{getCurrentPageItems() | json}} -->
     <tr *ngFor="let flight of getCurrentPageItems(); let i = index">
       <td>{{ flight.flightCode }}</td>
       <td>{{ flight.checkInWeight }} kg</td>

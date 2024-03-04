@@ -71,6 +71,9 @@ export class BookFlightComponent implements OnInit{
       gender: '',
       seatNo: seatNo,
     }));
+    if(this.ticketPrice === 0){
+      this.router.navigateByUrl('/customer');
+    }
   }
 
   readFormData(formData : any){
@@ -123,6 +126,7 @@ export class BookFlightComponent implements OnInit{
   }
 
   routeToPayment(amount : number){
+    console.log(this.passengers)
     this.paymentService.setAmount(amount);
     this.paymentService.initiatePayment(amount);
     this.bookingService.passengers = this.passengers;
