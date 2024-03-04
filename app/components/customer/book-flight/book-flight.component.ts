@@ -104,6 +104,7 @@ export class BookFlightComponent implements OnInit{
         }
       });
     }
+    this.flight = this.customerService.getFlightData();
   }
 
   getSelectedSeats(){

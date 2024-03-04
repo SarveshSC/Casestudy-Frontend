@@ -1,27 +1,22 @@
 <h2>Bookings</h2>
-
-
-
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Booking Id</th>
-      <th scope="col">Flight trip id</th>
-      <th scope="col">amount</th>
-      <th scope="col">Booking date and time</th>
-      <th scope="col">customer id</th>
+      <th scope="col">Flight Trip Id</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Booking Date </th>
+      <th scope="col">Customer Id</th>
       <th scope="col">Status</th>
       
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let booking of bookingList; let i = index">
-      <td>{{ i }}</td>
+    <tr *ngFor="let booking of getCurrentPageItems(); let i = index">
       <td>{{ booking.bookingId }}</td>
       <td>{{ booking.flightTripId }}</td>
-      <td>{{ booking.amount | currency : 'INR'}}</td>
-      <td>{{ booking.bookingDateTime | date }}</td>
+      <td>{{ booking.amount | currency : 'INR' : 'symbol'}}</td>
+      <td>{{ booking.bookingDateTime | date : 'MMM d, y, h:mm a'}}</td>
       <td>{{ booking.customerId }}</td>
       <td>{{ booking.status }}</td>
       

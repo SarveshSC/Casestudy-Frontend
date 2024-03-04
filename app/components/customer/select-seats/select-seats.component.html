@@ -1,30 +1,13 @@
-<p>select-seats works!</p>
-{{vacantSeats.length}}
+<div class="airport">
+  <div>
+    <h4><mat-icon>flight_takeoff</mat-icon>  {{flight.source.iataCode}}, {{flight.source.location}}</h4>
+  </div>
+  <div>
+    <h4><mat-icon>flight_land</mat-icon>  {{flight.destination.iataCode}}, {{flight.destination.location}}</h4>
+  </div>
+</div>
+{{flight.date | date : 'MMM d, y, h:mm a'}}
 <div class="page">
-    <!-- <div *ngFor="let column of leftColumns">
-      <div class="row-label">{{ column.name }}</div>
-      <div *ngFor="let row of getColumnCountArray(column.rows)" class="box">
-        <a id="{{ row + 1 }}{{ column.name }}" (click)="selectSeat($event)">
-            <div class="seat"  [ngStyle]="{ 'background-color': isSelected[(row + 1)+column.name] ? 'green' : 'white' }">
-                <span> {{ seat.seatNo }} </span>
-            </div>
-        </a>
-      </div>
-    </div>
-
-    <div *ngFor="let column of rightColumns">
-      <div class="row-label">{{ column.name }}</div>
-      <div *ngFor="let row of getColumnCountArray(column.rows)" class="box">
-        <a id="{{ row + 1 }}" (click)="selectSeat($event)">
-          <div class="seat"  [ngStyle]="{ 'background-color': isSelected[(row + 1)+column.name] ? 'green' : 'white' }">
-            <span> {{ row + 1 }}{{ column.name }} </span>
-          </div>
-        </a>
-      </div>
-    </div> -->
-
-
-
     <div class="grid-container">
       <div id="left-container">
         <div *ngFor="let row of leftRows">

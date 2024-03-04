@@ -7,3 +7,7 @@ h2{
     margin: auto;
     box-shadow: 5px 5px 5px;
 }
+
+button{
+    height: max-content;
+}
