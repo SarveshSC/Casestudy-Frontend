@@ -1,5 +1,7 @@
 <h2>Airports</h2>
 
+<input type="text" placeholder="Search" [(ngModel)]="searchText" class="search-input" (input)="onSearch()">
+<button (click)="openAddForm()" class="add-airport-button">ADD AIRPORT</button>
 <!-- {{airportList | json}} -->
 
 <table class="table" >
@@ -13,13 +15,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let airport of getCurrentPageItems(); let i = index">
+    <tr *ngFor="let airport of getCurrentPageItems() | customername:searchText; let i = index">
       <td>{{ i + 1 }}</td>
       <td>{{ airport.iataCode }}</td>
       <td>{{ airport.name }}</td>
       <td>{{ airport.location }}</td>
       <td>
-        <button mat-icon-button><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button (click)="openUpdateForm(airport.iataCode)"><mat-icon>edit</mat-icon></button>
       </td>
     </tr>
   </tbody>

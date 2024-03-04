@@ -26,6 +26,9 @@
             <td>{{booking.flightTripId}}</td>
             <!-- <td>{{booking.passengers.size}}</td> -->
             <td><button (click)="togglePassengers(booking)">view passengers</button></td>
+            <!-- <td><button (click)="print(booking.bookingId)">print</button></td> -->
+            <!-- <td><button (click)="download(booking.bookingId)">download</button></td> -->
+
         </tr>
         <tr *ngIf="booking.showPassengers">
             <td colspan="8">

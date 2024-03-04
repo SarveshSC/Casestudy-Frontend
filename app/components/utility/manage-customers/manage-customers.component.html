@@ -1,5 +1,6 @@
 <h2>Customers</h2>
-
+<input type="text" placeholder="Search" [(ngModel)]="searchText" class="search-input" (input)="onSearch()">
+<br>
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -13,7 +14,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let customer of getCurrentPageItems(); let i = index">
+    <tr *ngFor="let customer of getCurrentPageItems() | customername:searchText ; let i = index">
       <td>{{i+1}}</td>
       <td>{{ customer.username }}</td>
       <td>{{ customer.name }}</td>

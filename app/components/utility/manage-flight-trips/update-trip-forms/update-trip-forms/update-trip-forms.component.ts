@@ -36,6 +36,7 @@ export class UpdateTripFormsComponent {
   }
 
   closePopup() {
+    this.dashboardService.setFlightTripCode(this.editData.flightId)
     this.ref.close('closed using function')
     }
 

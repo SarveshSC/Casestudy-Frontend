@@ -92,6 +92,12 @@ export class BookingService {
       (error) => console.error(error)
     )
   }
+
+  cancelBooking(bookingId : number){
+    console.log('delete')
+    this.http.put(this.baseURL+'customers/booking/cancel-flight/'+ localStorage.getItem('username') + '/' + bookingId, {headers : this.getHeaders()});
+  }
+
   setPaymentId(paymentId : string){
     this.paymentId = paymentId;
   }

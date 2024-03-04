@@ -23,27 +23,36 @@
   <mat-label>Source</mat-label>
   <input formControlName="source" matInput [matAutocomplete]="auto1" [readonly]="isReadable">
   <mat-autocomplete #auto1="matAutocomplete" >
-  <mat-option *ngFor="let option of airportList " [value]="option.iataCode">
-    {{option.location}}
+  <mat-option *ngFor="let option of filteredOptionsForSource | async " [value]="option.iataCode">
+    {{option.iataCode}}-{{option.location}}-{{option.name}}
   </mat-option>
 </mat-autocomplete>
 </mat-form-field>
+
+
+
 <mat-form-field>
   <mat-label>Destination</mat-label>
-  <input formControlName="destination"   matInput [matAutocomplete]="auto" >
-  <mat-autocomplete #auto="matAutocomplete" >
-    <mat-option *ngFor="let option of airportList " [value]="option.iataCode">
-      {{option.location}}
+  <input  formControlName="destination"   matInput [matAutocomplete]="auto" >
+  <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+    <mat-option *ngFor="let option of filteredOptionsForDestination | async " [value]="option.iataCode">
+      {{option.iataCode}}-{{option.location}}-{{option.name}}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
 
-<mat-label>Arrival</mat-label>
+
+
+
+
+
+<mat-label>Departure</mat-label>
 <input type="datetime-local"  [min]="minDate"  formControlName="departure" matInput>
+
 
 <!-- <mat-form-field> -->
   <mat-label>Arrival</mat-label>
-  <input type="datetime-local" formControlName="arrival" matInput>
+  <input type="datetime-local" [min]="minDate" formControlName="arrival" matInput>
 <!-- </mat-form-field> -->
 <br>
 <mat-form-field>
@@ -59,3 +68,4 @@
 <small style="font-size: 30px; " *ngIf="isErrorExists" class="text-danger">&timesb;{{errorMessage}}</small>
 </div>
 </form>
+

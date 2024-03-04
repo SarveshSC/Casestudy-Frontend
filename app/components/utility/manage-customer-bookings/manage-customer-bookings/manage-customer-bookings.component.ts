@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { booking } from 'src/app/model/booking.model';
-import { CustomerDashboardService } from 'src/app/service/customer-dashboard.service';
+import { BookingService } from 'src/app/service/booking.service';
 
 @Component({
   selector: 'app-manage-customer-bookings',
@@ -16,7 +16,7 @@ export class ManageCustomerBookingsComponent {
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
-  constructor(private service : CustomerDashboardService) {}
+  constructor(private service : BookingService) {}
 
   ngOnInit(){
     this.getCustomerBookings();
@@ -33,7 +33,6 @@ export class ManageCustomerBookingsComponent {
   getCurrentPageItems(): booking[] {
     const startIndex = this.currentPage * this.pageSize;
     this.totalItems = this.bookingList.length;
-    console.log(this.bookingList.slice(startIndex, startIndex + this.pageSize));
     return this.bookingList.slice(startIndex, startIndex + this.pageSize);
   }
 }

@@ -14,6 +14,7 @@ export class ManageFlightOwnersComponent implements OnInit {
   pageSize: number = 5;
   totalItems: number = 0;
   currentPage = 0;
+  searchText='';
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
@@ -34,16 +35,12 @@ export class ManageFlightOwnersComponent implements OnInit {
     this.currentPage = event.pageIndex;
   }
 
-  getCurrentPageItems(): any[] {
-    const startIndex = this.currentPage * this.pageSize;
-    this.totalItems = this.flightOwnersList.length;
-    return this.flightOwnersList.slice(startIndex, startIndex + this.pageSize);
-  }
 
   approveUser(username: any) {
     this.dashboardService.approveUser(username)
       .subscribe({
         next: ((res) => {
+          alert(res)
           console.log(res);
           this.ngOnInit();
         }),
@@ -54,4 +51,64 @@ export class ManageFlightOwnersComponent implements OnInit {
 
       })
   }
+
+  removeUser(username:any){
+    this.dashboardService.removeUser(username)
+    .subscribe({
+      next: ((res) => {
+        alert(res);
+        console.log(res);
+        this.ngOnInit();
+      }),
+      error: ((error) => {
+        console.log(error.error);
+        this.ngOnInit();
+      })
+
+    })
+  }
+
+  inactiveUser(username:any){
+    this.dashboardService.inactiveUser(username)
+    .subscribe({
+      next: ((res) => {
+        alert(res);
+        console.log(res);
+        this.ngOnInit();
+      }),
+      error: ((error) => {
+        console.log(error.error);
+        this.ngOnInit();
+      })
+
+    })
+  }
+  getCurrentPageItems(): flightOwner[] {
+    // Filter airlines based on search text
+    const filteredAirlines = this.flightOwnersList.filter(flightowner => {
+      return flightowner.username.toLowerCase().includes(this.searchText.toLowerCase()) || 
+      flightowner.email.toLowerCase().includes(this.searchText.toLowerCase());
+    });
+  
+    // Update total items count
+    this.totalItems = filteredAirlines.length;
+  
+    // Calculate start index based on current page and page size
+    const startIndex = this.currentPage * this.pageSize;
+  
+    // Update current page if necessary
+    const filteredPage = Math.floor(startIndex / this.pageSize);
+    if (this.currentPage !== filteredPage) {
+      this.currentPage = filteredPage;
+      this.paginator.pageIndex = filteredPage;
+    }
+  
+    // Return airlines for the current page
+    return filteredAirlines.slice(startIndex, startIndex + this.pageSize);
+  }
+  onSearch() {
+    // Reset paginator to first page when searching
+    this.paginator.firstPage();
+  }
+
 }

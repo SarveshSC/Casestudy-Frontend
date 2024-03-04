@@ -4,6 +4,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { customer } from 'src/app/model/customer.model';
 import { AdminDashboardService } from 'src/app/service/admin-dashboard.service';
 import { BookingsComponent } from './view-bookings/bookings/bookings.component';
+import { CustomernamePipe } from './pipes/customername.pipe';
+
 
 @Component({
   selector: 'app-manage-customers',
@@ -15,6 +17,7 @@ export class ManageCustomersComponent implements OnInit{
   totalItems = 0;
   currentPage = 0;
   pageSize = 5;
+  searchText='';
 
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
@@ -45,8 +48,32 @@ export class ManageCustomersComponent implements OnInit{
   }
 
   getCurrentPageItems(): customer[] {
+    // Filter airlines based on search text
+    const filteredAirlines = this.customerList.filter(customer => {
+      return customer.username.toLowerCase().includes(this.searchText.toLowerCase()) || 
+      customer.name.toLowerCase().includes(this.searchText.toLowerCase())||
+      customer.email.toLowerCase().includes(this.searchText.toLowerCase())||
+      customer.contact.toLowerCase().includes(this.searchText.toLowerCase()) ;
+    });
+  
+    // Update total items count
+    this.totalItems = filteredAirlines.length;
+  
+    // Calculate start index based on current page and page size
     const startIndex = this.currentPage * this.pageSize;
-    this.totalItems = this.customerList.length;
-    return this.customerList.slice(startIndex, startIndex + this.pageSize);
+  
+    // Update current page if necessary
+    const filteredPage = Math.floor(startIndex / this.pageSize);
+    if (this.currentPage !== filteredPage) {
+      this.currentPage = filteredPage;
+      this.paginator.pageIndex = filteredPage;
+    }
+  
+    // Return airlines for the current page
+    return filteredAirlines.slice(startIndex, startIndex + this.pageSize);
+  }
+  onSearch() {
+    // Reset paginator to first page when searching
+    this.paginator.firstPage();
   }
 }
